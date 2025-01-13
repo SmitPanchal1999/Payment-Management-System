@@ -11,10 +11,11 @@ const routes: Routes = [
   { path: 'payments/add', component: AddPaymentComponent },
   { path: 'payments/edit/:id', component: EditPaymentComponent },
   { path: 'payments/:id/evidence', component: UploadEvidenceComponent },
+  { path: '**', redirectTo: '/payments' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,  { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
