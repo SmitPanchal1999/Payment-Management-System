@@ -1,4 +1,6 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File, Query, Form
+from fastapi.middleware.cors import CORSMiddleware
+from typing import Optional, Dict, Any
 from app.payment_services import (
     create_payment, 
     get_payments, 
@@ -12,10 +14,8 @@ from app.payment_services import (
 from models import Payment
 from io import StringIO
 import csv
-from typing import Optional, Dict, Any
 import json
 
-from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 app.add_middleware(
@@ -132,5 +132,4 @@ async def download_evidence_endpoint(payment_id: str):
     except HTTPException as he:
         raise he
     except Exception as e:
-        logger.error(f"Error in download_evidence_endpoint: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))

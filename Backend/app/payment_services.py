@@ -1,6 +1,6 @@
-from db import collection, database
-from models import Payment
-from validators import validate_payment
+from app.db import collection, database
+from app.models import Payment
+from app.validators import validate_payment
 import datetime
 from fastapi import Query
 from datetime import datetime, date

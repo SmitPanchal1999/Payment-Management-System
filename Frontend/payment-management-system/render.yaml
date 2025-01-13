@@ -2,8 +2,10 @@ services:
   - type: web
     name: payment-management-system-frontend
     runtime: static
-    buildCommand: npm install && npm run build
+    buildCommand: |
+      npm install --legacy-peer-deps
+      npm run build
     staticPublishPath: ./dist/payment-management-system
     envVars:
       - key: NODE_VERSION
-        value: 18.x 
+        value: 20.x 
