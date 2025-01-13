@@ -11,7 +11,7 @@ from app.payment_services import (
     download_evidence,
     import_payments_from_csv
 )
-from models import Payment
+from app.models import Payment
 from io import StringIO
 import csv
 import json

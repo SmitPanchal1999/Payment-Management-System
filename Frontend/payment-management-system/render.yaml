@@ -3,11 +3,9 @@ services:
     name: payment-management-system-frontend
     runtime: static
     buildCommand: |
-      export NODE_OPTIONS="--max_old_space_size=4096 --openssl-legacy-provider"
-      npm cache clean --force
-      npm install --force
+      npm install --legacy-peer-deps
       npm run build
     staticPublishPath: ./dist/payment-management-system
     envVars:
       - key: NODE_VERSION
-        value: 16.14.0 
+        value: 12.22.12 
