@@ -1,4 +1,6 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File, Query, Form
+from fastapi.middleware.cors import CORSMiddleware
+from typing import Optional, Dict, Any
 from app.payment_services import (
     create_payment, 
     get_payments, 
@@ -12,10 +14,8 @@ from app.payment_services import (
 from models import Payment
 from io import StringIO
 import csv
-from typing import Optional, Dict, Any
 import json
 
-from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 app.add_middleware(
