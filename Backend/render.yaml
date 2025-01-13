@@ -1,11 +1,11 @@
 services:
   - type: web
-    name: payment-system-backend
+    name: payment-management-system-backend
     runtime: python
     buildCommand: pip install -r requirements.txt
     startCommand: cd Backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHONPATH
         value: .
-      - key: MONGODB_URL
+      - key: MONGODB_URI
         sync: false 

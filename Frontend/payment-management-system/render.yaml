@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: payment-system-frontend
+    name: payment-management-system-frontend
     runtime: static
-    buildCommand: export NODE_OPTIONS=--openssl-legacy-provider && npm install && npm run build
+    buildCommand: npm install && npm run build
     staticPublishPath: ./dist/payment-management-system
     envVars:
       - key: NODE_VERSION
-        value: 16.x 
+        value: 18.x 
