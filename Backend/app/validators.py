@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 from pydantic import ValidationError
-from models import Payment
+from app.models import Payment
 from typing import List
 from decimal import Decimal
 
