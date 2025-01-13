@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://payment-system-backend.onrender.com'  // We'll update this with actual URL later
+  apiUrl: 'https://payment-management-system-backend.onrender.com'  // Replace with your actual backend URL
 };

@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File, Query, Form
-from payment_services import (
+from app.payment_services import (
     create_payment, 
     get_payments, 
     get_payment_by_id,
@@ -20,11 +20,13 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins
-    allow_credentials=False,  # Must be False when allow_origins=["*"]
-    allow_methods=["*"],  # Allows all methods
-    allow_headers=["*"],  # Allows all headers
-    expose_headers=["Content-Disposition"]  # For file downloads
+    allow_origins=[
+        "https://payment-management-system-frontend.onrender.com",  # Replace with your frontend URL
+        "http://localhost:4200"  # Keep this for local development
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 @app.post("/payments/")
 async def create_payment_route(payment: Payment):

@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
-    "build": "set NODE_OPTIONS=--openssl-legacy-provider && ng build",
+    "start": "export NODE_OPTIONS=--openssl-legacy-provider && ng serve",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "heroku-postbuild": "ng build --configuration production"
@@ -41,7 +41,7 @@
     "typescript": "~4.3.5"
   },
   "engines": {
-    "node": "18.x",
+    "node": "16.x",
     "npm": "9.x"
   }
 }
