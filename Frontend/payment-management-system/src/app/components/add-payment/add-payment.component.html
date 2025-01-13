@@ -1,0 +1,119 @@
+<div class="add-payment-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Add New Payment</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()" class="payment-form">
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="payee_first_name" required>
+            <mat-error *ngIf="paymentForm.get('payee_first_name')?.hasError('required')">
+              First name is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="payee_last_name" required>
+            <mat-error *ngIf="paymentForm.get('payee_last_name')?.hasError('required')">
+              Last name is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="payee_email" required type="email">
+          <mat-error *ngIf="paymentForm.get('payee_email')?.hasError('required')">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="paymentForm.get('payee_email')?.hasError('email')">
+            Please enter a valid email address
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="payee_address" required>
+          <mat-error *ngIf="paymentForm.get('payee_address')?.hasError('required')">
+            Address is required
+          </mat-error>
+        </mat-form-field>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>City</mat-label>
+            <input matInput formControlName="payee_city" required>
+            <mat-error *ngIf="paymentForm.get('payee_city')?.hasError('required')">
+              City is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Country</mat-label>
+            <mat-select formControlName="payee_country" required>
+              <mat-option *ngFor="let country of countries" [value]="country">
+                {{country}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="paymentForm.get('payee_country')?.hasError('required')">
+              Country is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Due Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="payee_due_date" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="paymentForm.get('payee_due_date')?.hasError('required')">
+              Due date is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Due Amount</mat-label>
+            <input matInput type="number" formControlName="due_amount" required>
+            <mat-error *ngIf="paymentForm.get('due_amount')?.hasError('required')">
+              Due amount is required
+            </mat-error>
+            <mat-error *ngIf="paymentForm.get('due_amount')?.hasError('min')">
+              Amount must be greater than 0
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Discount Percentage</mat-label>
+            <input matInput type="number" formControlName="discount_percent">
+            <mat-error *ngIf="paymentForm.get('discount_percent')?.hasError('min')">
+              Discount must be between 0 and 100
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Tax Percentage</mat-label>
+            <input matInput type="number" formControlName="tax_percent">
+            <mat-error *ngIf="paymentForm.get('tax_percent')?.hasError('min')">
+              Tax must be between 0 and 100
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-button type="button" routerLink="/payments">Cancel</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="!paymentForm.valid || isLoading">
+            <mat-spinner diameter="20" *ngIf="isLoading"></mat-spinner>
+            <span *ngIf="!isLoading">Create Payment</span>
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

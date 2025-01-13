@@ -1,0 +1,66 @@
+/* You can add global styles to this file, and also import other style files */
+html, body { 
+  height: 100%; 
+  margin: 0;
+}
+
+body { 
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #f5f5f5;
+}
+
+.mat-mdc-card {
+  margin-bottom: 20px;
+}
+
+/* Common utility classes */
+.text-center {
+  text-align: center;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+/* Common form styles */
+.form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Status badge colors */
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status-pending {
+  background-color: #ffd740;
+  color: #000;
+}
+
+.status-due_now {
+  background-color: #69f0ae;
+  color: #000;
+}
+
+.status-completed {
+  background-color: #2196f3;
+  color: #fff;
+}
+
+.status-overdue {
+  background-color: #f44336;
+  color: #fff;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

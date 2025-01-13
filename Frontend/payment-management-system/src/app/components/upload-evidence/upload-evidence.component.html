@@ -1,0 +1,60 @@
+<div class="evidence-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Payment Evidence</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div *ngIf="isLoading" class="loading-spinner">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+
+      <div *ngIf="!isLoading" class="evidence-section">
+        <!-- Download section if evidence exists -->
+        <div *ngIf="hasEvidence" class="download-section">
+          <p>Current evidence file is available</p>
+          <button 
+            mat-raised-button 
+            color="primary" 
+            (click)="downloadEvidence()">
+            Download Evidence
+          </button>
+        </div>
+
+        <!-- Upload section (always visible) -->
+        <div class="upload-section">
+          <input
+            type="file"
+            #fileInput
+            style="display: none"
+            (change)="onFileSelected($event)"
+            accept=".pdf,.jpg,.jpeg,.png"
+          >
+          <button 
+            mat-raised-button 
+            color="primary" 
+            (click)="fileInput.click()">
+            {{ hasEvidence ? 'Replace Evidence' : 'Select File' }}
+          </button>
+          <span *ngIf="selectedFile" class="selected-file">
+            {{ selectedFile.name }}
+          </span>
+          <button 
+            mat-raised-button 
+            color="accent" 
+            [disabled]="!selectedFile"
+            (click)="uploadEvidence()">
+            {{ hasEvidence ? 'Update Evidence' : 'Upload Evidence' }}
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-button color="primary" routerLink="/payments">
+        <mat-icon>arrow_back</mat-icon>
+        Back to Payments
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

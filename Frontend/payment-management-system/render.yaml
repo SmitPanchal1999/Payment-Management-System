@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: payment-system-frontend
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist/payment-management-system
+    envVars:
+      - key: NODE_VERSION
+        value: 18.x 

@@ -1,0 +1,63 @@
+.payment-list-container {
+  padding: 20px;
+}
+
+.actions-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.actions-row mat-form-field {
+  flex: 1;
+}
+
+.table-container {
+  position: relative;
+  min-height: 200px;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-column-actions {
+  width: 120px;
+  text-align: center;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status-pending {
+  background-color: #ffd740;
+  color: #000;
+}
+
+.status-due_now {
+  background-color: #69f0ae;
+  color: #000;
+}
+
+.status-completed {
+  background-color: #2196f3;
+  color: #fff;
+}
+
+.status-overdue {
+  background-color: #f44336;
+  color: #fff;
+}
+
+mat-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}

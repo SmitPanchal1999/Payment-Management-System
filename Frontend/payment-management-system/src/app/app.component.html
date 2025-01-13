@@ -1,0 +1,18 @@
+<div class="app-container">
+  <mat-toolbar color="primary" class="app-toolbar">
+    <span>{{title}}</span>
+    <span class="toolbar-spacer"></span>
+    <button mat-button routerLink="/payments" routerLinkActive="active">
+      <mat-icon>list</mat-icon>
+      Payments
+    </button>
+    <button mat-button routerLink="/payments/add" routerLinkActive="active">
+      <mat-icon>add</mat-icon>
+      New Payment
+    </button>
+  </mat-toolbar>
+
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,102 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.env
+
+# Virtual Environment
+virtual-env/
+venv/
+env/
+ENV/
+.venv/
+.env/
+.env.bak/
+.venv.bak/
+
+# Angular
+.DS_Store
+Frontend/payment-management-system/node_modules/
+Frontend/payment-management-system/dist/
+Frontend/payment-management-system/tmp/
+Frontend/payment-management-system/out-tsc/
+Frontend/payment-management-system/.angular/
+Frontend/payment-management-system/npm-debug.log
+Frontend/payment-management-system/yarn-error.log
+Frontend/payment-management-system/.idea/
+Frontend/payment-management-system/.project
+Frontend/payment-management-system/.classpath
+Frontend/payment-management-system/.c9/
+Frontend/payment-management-system/*.launch
+Frontend/payment-management-system/.settings/
+Frontend/payment-management-system/*.sublime-workspace
+Frontend/payment-management-system/.vscode/*
+!Frontend/payment-management-system/.vscode/settings.json
+!Frontend/payment-management-system/.vscode/tasks.json
+!Frontend/payment-management-system/.vscode/launch.json
+!Frontend/payment-management-system/.vscode/extensions.json
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# MongoDB
+data/
+*.log
+mongod.lock
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor directories and files
+.vs/
+*.swp
+*.swo
+*.swn
+*.bak
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production 
