@@ -98,7 +98,7 @@ async def get_payments(
             if payment["payee_payment_status"] != "completed":
                 due_date = payment["payee_due_date"]
                 if isinstance(due_date, str):
-                    due_date = datetime.strptime(due_date, "%Y-%m-%d").date()
+                    due_date = datetime.strptime(due_date, "%Y-%m-%dT%H:%M:%S.%fZ").date()
                 elif isinstance(due_date, datetime):
                     due_date = due_date.date()
                 

@@ -21,8 +21,10 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://payment-management-system-frontend.onrender.com",  # Replace with your frontend URL
-        "http://localhost:4200"  # Keep this for local development
+        "https://payment-management-system-umber.vercel.app/", 
+         "https://payment-management-system-frontend.onrender.com" # Replace with your frontend URL
+        "http://localhost:4200",
+          "http://localhost:3000"  # Keep this for local development
     ],
     allow_credentials=True,
     allow_methods=["*"],
