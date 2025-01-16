@@ -22,7 +22,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://payment-management-system-umber.vercel.app/", 
-         "https://payment-management-system-frontend.onrender.com" # Replace with your frontend URL
+         "https://payment-management-system-frontend.onrender.com", # Replace with your frontend URL
         "http://localhost:4200",
           "http://localhost:3000"  # Keep this for local development
     ],
