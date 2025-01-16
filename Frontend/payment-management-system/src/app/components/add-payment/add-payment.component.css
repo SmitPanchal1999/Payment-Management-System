@@ -1,7 +1,6 @@
 .add-payment-container {
-  max-width: 800px;
+  max-width: 600px;
   margin: 20px auto;
-  padding: 0 20px;
 }
 
 .add-payment-container mat-card {
@@ -11,8 +10,6 @@
 .payment-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding-top: 20px;
 }
 
 .form-row {
@@ -30,8 +27,7 @@
 
 .form-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 16px;
+  justify-content: space-between;
   margin-top: 20px;
 }
 
@@ -42,4 +38,8 @@
 button mat-spinner {
   display: inline-block;
   margin-right: 8px;
+}
+
+.mat-form-field {
+  margin-bottom: 16px;
 }

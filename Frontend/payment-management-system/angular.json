@@ -59,7 +59,9 @@
         "serve": { 
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "payment-management-system:build"
+            "browserTarget": "payment-management-system:build",
+            "host": "localhost",
+            "port": 4200
           },
           "configurations": {
             "production": {
