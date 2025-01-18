@@ -17,6 +17,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatDividerModule,
     MatCheckboxModule,
     MatProgressBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatAutocompleteModule
   ]
 })
 export class MaterialModule { } 

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentService } from '../../services/payment.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Payment } from '../../models/payment.model';
+import { CountryService } from '../../services/country.service';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-payment',
@@ -16,35 +19,19 @@ export class EditPaymentComponent implements OnInit {
   isLoading = false;
   paymentId!: string;
   selectedFile: File | null = null;
-  countries = [
-    { code: 'US', name: 'United States' },
-    { code: 'GB', name: 'United Kingdom' },
-    { code: 'CA', name: 'Canada' },
-    { code: 'AU', name: 'Australia' },
-    { code: 'DE', name: 'Germany' },
-    { code: 'FR', name: 'France' },
-    { code: 'IT', name: 'Italy' },
-    { code: 'ES', name: 'Spain' },
-    { code: 'JP', name: 'Japan' },
-    { code: 'CN', name: 'China' },
-    { code: 'IN', name: 'India' },
-    { code: 'BR', name: 'Brazil' },
-    { code: 'MX', name: 'Mexico' },
-    { code: 'RU', name: 'Russia' },
-    { code: 'ZA', name: 'South Africa' },
-    { code: 'SG', name: 'Singapore' },
-    { code: 'NZ', name: 'New Zealand' },
-    { code: 'AE', name: 'United Arab Emirates' },
-    { code: 'NL', name: 'Netherlands' },
-    { code: 'SE', name: 'Sweden' }
-  ];
+  countries: any[] = [];
+  states: any[] = [];
+  cities: any[] = [];
+  filteredCountries: any[] = [];
+  countryFilterCtrl: FormControl = new FormControl();
 
   constructor(
     private fb: FormBuilder,
     private paymentService: PaymentService,
     private route: ActivatedRoute,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private countryService: CountryService
   ) {
     this.createForm();
   }
@@ -52,6 +39,17 @@ export class EditPaymentComponent implements OnInit {
   ngOnInit(): void {
     this.paymentId = this.route.snapshot.params['id'];
     this.loadPayment();
+    console.log("countries");
+    this.countryService.getCountries().subscribe((data: any) => {
+      console.log("data", data);
+      this.countries = data.data;
+      this.filteredCountries = this.countries;
+
+      this.countryFilterCtrl.valueChanges.subscribe(value => {
+        this.filteredCountries = this._filterCountries(value);
+      });
+    });
+    console.log("filteredCountries", this.filteredCountries);
   }
 
   createForm(): void {
@@ -63,7 +61,7 @@ export class EditPaymentComponent implements OnInit {
       payee_address_line_2: [''],
       payee_city: ['', [Validators.required]],
       payee_country: ['', [Validators.required]],
-      payee_province_or_state: [''],
+      payee_province_or_state: ['', [Validators.required]],
       payee_postal_code: ['', [Validators.required]],
       payee_phone_number: ['', [Validators.required]],
       payee_payment_status: ['', [Validators.required]],
@@ -73,7 +71,8 @@ export class EditPaymentComponent implements OnInit {
       discount_percent: [null],
       tax_percent: [null],
       due_amount: ['', [Validators.required, Validators.min(0)]],
-      payee_payment_status_completed: ['no', [Validators.required]]
+      payee_payment_status_completed: ['no', [Validators.required]],
+      countryFilterCtrl: [''],
     });
 
     // Listen for status changes to handle evidence requirement
@@ -99,6 +98,12 @@ export class EditPaymentComponent implements OnInit {
           ...payment,
           payee_due_date: new Date(payment.payee_due_date)
         });
+        this.countryService.getStates(payment.payee_country).subscribe(data => {
+          this.states = data.data.states;
+        });
+        this.countryService.getCities(payment.payee_country, payment.payee_province_or_state).subscribe(data => {
+          this.cities = data.data;
+        });
         this.paymentStatus = payment.payee_payment_status;
         this.isLoading = false;
       },
@@ -108,6 +113,7 @@ export class EditPaymentComponent implements OnInit {
         this.router.navigate(['/payments']);
       }
     });
+    
   }
 
   onFileSelected(event: any): void {
@@ -118,7 +124,7 @@ export class EditPaymentComponent implements OnInit {
   }
 
   async onSubmit(): Promise<void> {
-    if (this.isFormValid()) {
+    if (this.paymentForm.valid) {
       this.isLoading = true;
       const formValue = this.paymentForm.value;
       
@@ -144,6 +150,9 @@ export class EditPaymentComponent implements OnInit {
       } finally {
         this.isLoading = false;
       }
+    } else {
+      // Mark all controls as touched to show validation errors
+      this.paymentForm.markAllAsTouched();
     }
   }
 
@@ -166,4 +175,31 @@ export class EditPaymentComponent implements OnInit {
       this.paymentForm.patchValue({ payee_payment_status: null , is_completed: false});
     }
   }
+
+  private _filterCountries(value: string): any[] {
+    const filterValue = value.toLowerCase();
+    return this.countries.filter(country => country.name.toLowerCase().includes(filterValue));
+  }
+
+  onCountrySelect(event: any) {
+    const country = event.value;
+    this.paymentForm.get('payee_province_or_state')?.setValue('');
+    this.paymentForm.get('payee_city')?.setValue('');
+    this.states = [];
+    this.cities = [];
+
+    this.countryService.getStates(country).subscribe(data => {
+      this.states = data.data.states;
+    });
+  }
+
+  onStateSelect(event: any) {
+    const state = event.value;
+    this.cities = [];
+
+    this.countryService.getCities(this.paymentForm.get('payee_country')?.value, state).subscribe(data => {
+      this.cities = data.data;
+    });
+  }
 }
+

@@ -1,4 +1,5 @@
 export interface Payment {
+    payee_province_or_state: any;
     _id?: string;
     payee_first_name: string;
     payee_last_name: string;

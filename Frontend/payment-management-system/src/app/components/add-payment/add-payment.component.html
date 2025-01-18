@@ -68,29 +68,43 @@
 
           <div class="form-row">
             <mat-form-field appearance="outline">
-              <mat-label>City *</mat-label>
-              <input matInput formControlName="payee_city" required>
-              <mat-error *ngIf="paymentForm.get('payee_city')?.hasError('required')">
-                City is required
+              <mat-label>Country *</mat-label>
+              <mat-select formControlName="payee_country" (selectionChange)="onCountrySelect($event)">
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="countryFilterCtrl" placeholderLabel="Search country..."></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let country of filteredCountries" [value]="country.country">
+                  {{ country.country}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="paymentForm.get('payee_country')?.hasError('required')">
+                Country is required
               </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>Province/State</mat-label>
-              <input matInput formControlName="payee_province_or_state">
+              <mat-label>State/Province *</mat-label>
+              <mat-select formControlName="payee_province_or_state" (selectionChange)="onStateSelect($event)">
+                <mat-option *ngFor="let state of states" [value]="state.name">
+                  {{ state.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="paymentForm.get('payee_province_or_state')?.hasError('required')">
+                State/Province is required
+              </mat-error>
             </mat-form-field>
           </div>
 
           <div class="form-row">
             <mat-form-field appearance="outline">
-              <mat-label>Country *</mat-label>
-              <mat-select formControlName="payee_country" required>
-                <mat-option *ngFor="let country of countries" [value]="country.code">
-                  {{country.name}} ({{country.code}})
+              <mat-label>City *</mat-label>
+              <mat-select formControlName="payee_city">
+                <mat-option *ngFor="let city of cities" [value]="city">
+                  {{ city }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="paymentForm.get('payee_country')?.hasError('required')">
-                Country is required
+              <mat-error *ngIf="paymentForm.get('payee_city')?.hasError('required')">
+                City is required
               </mat-error>
             </mat-form-field>
 
@@ -177,9 +191,8 @@
             mat-raised-button 
             color="primary" 
             type="submit" 
-            [disabled]="!isFormValid() || isLoading">
-            <mat-spinner diameter="20" *ngIf="isLoading"></mat-spinner>
-            <span *ngIf="!isLoading">Create Payment</span>
+            [disabled]="!paymentForm.valid">
+            Create Payment
           </button>
         </div>
       </form>
