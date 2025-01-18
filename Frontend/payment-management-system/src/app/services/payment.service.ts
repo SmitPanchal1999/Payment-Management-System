@@ -8,7 +8,7 @@ import { tap, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class PaymentService {
-  private apiUrl = 'http://127.0.0.1:8000'; // Make sure this matches your backend URL
+  private apiUrl = 'https://payment-management-system-backend.onrender.com'; // Make sure this matches your backend URL
 
   constructor(private http: HttpClient) {}
 
