@@ -24,7 +24,8 @@ app.add_middleware(
         "https://payment-management-system-umber.vercel.app/", 
          "https://payment-management-system-frontend.onrender.com", # Replace with your frontend URL
         "http://localhost:4200",
-          "http://localhost:3000"  # Keep this for local development
+          "http://localhost:3000",
+            "http://127.0.0.1:4200",  # Keep this for local development
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -79,9 +80,14 @@ async def update_payment_endpoint(
     evidence_file: Optional[UploadFile] = File(None)
 ):
     try:
+        
+        payment = await get_payment_by_id_route(payment_id)
+    
+        # Check if the payment status is completed
+        if payment["payee_payment_status"] == "completed":
+            raise HTTPException(status_code=400, detail="Cannot edit a completed payment")
         # Parse the JSON string data
         update_data = json.loads(data)
-        
         # Add file if present
         if evidence_file:
             update_data['evidence_file'] = evidence_file

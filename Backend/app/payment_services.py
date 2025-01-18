@@ -22,8 +22,12 @@ logger = logging.getLogger(__name__)
 async def create_payment(payment_data: dict):
     try:
         logger.debug(f"Starting payment creation with data: {payment_data}")
-        
+        if not payment_data['discount_percent']:
+            payment_data['discount_percent'] = 0
+        if not payment_data['tax_percent']:
+            payment_data['tax_percent'] = 0
         # Validate payment data
+        logger.info(f"Payment details: {payment_data}")
         payment = validate_payment(payment_data)
         logger.debug(f"Payment validation successful: {payment}")
         
@@ -108,6 +112,8 @@ async def get_payments(
                     payment["payee_payment_status"] = "overdue"
                 elif due_date == current_date:
                     payment["payee_payment_status"] = "due_now"
+                else:
+                    payment["payee_payment_status"] = "pending"
 
         response = {
             "total": total,
@@ -162,7 +168,7 @@ async def update_payment(payment_id: str, update_data: dict):
                         status_code=400,
                         detail="Evidence file is required when marking payment as completed"
                     )
-
+        update_data["total_due"] = calculate_total_due(update_data)
         # Perform the update
         result = await collection.update_one(
             {"_id": ObjectId(payment_id)}, 
@@ -226,11 +232,11 @@ async def delete_payment(payment_id: str):
 
 # Helper to calculate total_due from discounts and tax
 def calculate_total_due(payment_data:dict):
-    total = payment_data.due_amount
-    if payment_data.discount_percent:
-        total -= (total * (payment_data.discount_percent / 100))
-    if payment_data.tax_percent:
-        total += (total * (payment_data.tax_percent / 100))
+    total = payment_data['due_amount']
+    if 'discount_percent' in payment_data:
+        total -= (total * (payment_data['discount_percent'] / 100))
+    if 'tax_percent' in payment_data:
+        total += (total * (payment_data['tax_percent'] / 100))
     return round(total, 2)
 
 import os

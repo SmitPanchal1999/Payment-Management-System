@@ -18,6 +18,7 @@ export class PaymentListComponent implements OnInit {
     'payee_first_name',
     'payee_last_name',
     'payee_email',
+    'payee_added_date_utc',
     'payee_due_date',
     'due_amount',
     'total_due',
@@ -52,8 +53,11 @@ export class PaymentListComponent implements OnInit {
 
   ngOnInit() {
     this.loadPayments();
+    
   }
-
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort; // Assign the MatSort to the data source
+  }
   loadPayments(search?: string) {
     this.isLoading = true;
     this.paymentService.getPayments(
@@ -120,5 +124,18 @@ export class PaymentListComponent implements OnInit {
 
   getStatusClass(status: string): string {
     return `status-${status.toLowerCase()}`;
+  }
+
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true
+    };
+    return date.toLocaleString('en-US', options);
   }
 }

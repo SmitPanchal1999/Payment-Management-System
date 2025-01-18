@@ -16,6 +16,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 @NgModule({
   exports: [
@@ -34,6 +36,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSnackBarModule,
     MatToolbarModule,
     MatDividerModule,
+    MatCheckboxModule,
     MatProgressBarModule,
     MatTooltipModule
   ]

@@ -116,9 +116,10 @@ class Payment(BaseModel):
         """
         Calculate total_due if not already provided.
         """
-        due_amount = values.get('due_amount')
-        discount_percent = values.get('discount_percent', 0)
-        tax_percent = values.get('tax_percent', 0)
+        due_amount = values['due_amount'] if values['due_amount'] is not None else 0.0
+        tax_percent = values['tax_percent'] if values['tax_percent'] is not None else 0.0
+        discount_percent = values['discount_percent'] if values['discount_percent'] is not None else 0.0
+
 
         if due_amount is not None:
 

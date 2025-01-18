@@ -12,6 +12,7 @@ import { Payment } from '../../models/payment.model';
 })
 export class EditPaymentComponent implements OnInit {
   paymentForm!: FormGroup;
+  paymentStatus: string = 'pending';
   isLoading = false;
   paymentId!: string;
   selectedFile: File | null = null;
@@ -37,7 +38,6 @@ export class EditPaymentComponent implements OnInit {
     { code: 'NL', name: 'Netherlands' },
     { code: 'SE', name: 'Sweden' }
   ];
-  statuses = ['pending', 'due_now', 'completed', 'overdue'];
 
   constructor(
     private fb: FormBuilder,
@@ -72,13 +72,21 @@ export class EditPaymentComponent implements OnInit {
       currency: ['USD', [Validators.required]],
       discount_percent: [null],
       tax_percent: [null],
-      due_amount: ['', [Validators.required, Validators.min(0)]]
+      due_amount: ['', [Validators.required, Validators.min(0)]],
+      payee_payment_status_completed: ['no', [Validators.required]]
     });
 
     // Listen for status changes to handle evidence requirement
-    this.paymentForm.get('payee_payment_status')?.valueChanges.subscribe(status => {
-      if (status === 'completed' && !this.selectedFile) {
-        this.snackBar.open('Evidence file is required for completed status', 'Close', { duration: 3000 });
+    this.paymentForm.get('payee_payment_status_completed')?.valueChanges.subscribe(status => {
+      if (status === 'yes') {
+        this.paymentForm.patchValue({ payee_payment_status: 'completed' });
+        if(!this.selectedFile){
+          this.snackBar.open('Evidence file is required for completed status', 'Close', { duration: 3000 });
+        }
+      }
+      else{
+        this.paymentForm.patchValue({ payee_payment_status: this.paymentStatus });
+        this.selectedFile = null;
       }
     });
   }
@@ -91,6 +99,7 @@ export class EditPaymentComponent implements OnInit {
           ...payment,
           payee_due_date: new Date(payment.payee_due_date)
         });
+        this.paymentStatus = payment.payee_payment_status;
         this.isLoading = false;
       },
       error: (error) => {
@@ -148,5 +157,13 @@ export class EditPaymentComponent implements OnInit {
     }
 
     return isBasicFormValid;
+  }
+
+  onStatusChange(event: any): void {
+    if (event.checked) {
+      this.paymentForm.patchValue({ payee_payment_status: 'completed' , is_completed: true});
+    } else {
+      this.paymentForm.patchValue({ payee_payment_status: null , is_completed: false});
+    }
   }
 }
