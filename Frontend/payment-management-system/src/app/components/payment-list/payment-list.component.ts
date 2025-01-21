@@ -18,6 +18,7 @@ export class PaymentListComponent implements OnInit {
     'payee_first_name',
     'payee_last_name',
     'payee_email',
+    'payee_country',
     'payee_added_date_utc',
     'payee_due_date',
     'due_amount',
@@ -85,7 +86,11 @@ export class PaymentListComponent implements OnInit {
   onPageChange(event: any) {
     this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.loadPayments();
+    const searchInput = document.getElementById('search-input') as HTMLInputElement;
+    if (!searchInput.value) {
+      searchInput.value = '';
+    }
+    this.loadPayments(searchInput.value);
   }
 
   onImportCsv(event: any) {

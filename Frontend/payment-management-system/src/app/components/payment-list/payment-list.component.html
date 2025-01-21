@@ -2,7 +2,7 @@
   <div class="actions-row">
     <mat-form-field appearance="outline">
       <mat-label>Search Payments</mat-label>
-      <input matInput (keyup)="onSearch($event)" placeholder="Search by name, email...">
+      <input matInput (keyup)="onSearch($event)" id='search-input' placeholder="Search by first name, last name, email, address, city, state, country, payment status...">
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
 
@@ -46,6 +46,11 @@
         <td mat-cell *matCellDef="let row"> {{row.payee_email}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="payee_country">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
+        <td mat-cell *matCellDef="let payment">{{ payment.payee_country }}</td>
+      </ng-container>
+      
       <ng-container matColumnDef="payee_added_date_utc">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Added Due Date </th>
         <td mat-cell *matCellDef="let row"> {{formatDate(row.payee_added_date_utc)}} </td>
@@ -82,20 +87,30 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let row">
-          <button mat-icon-button [routerLink]="['/payments/edit', row._id]" matTooltip="Edit"
-          [disabled]="row.payee_payment_status === 'completed'">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button (click)="deletePayment(row._id)" matTooltip="Delete">
-            <mat-icon>delete</mat-icon>
-          </button>
-          <button 
+          <div class="action-buttons">
+            <button 
             mat-icon-button 
-            *ngIf="row.evidence_file_id"
-            [routerLink]="['/payments', row._id, 'evidence']"
-            matTooltip="View Evidence">
-            <mat-icon>attachment</mat-icon>
+            [routerLink]="['/payments', row._id]" 
+            matTooltip="View Payment Details">
+            <mat-icon>visibility</mat-icon>
           </button>
+            <button mat-icon-button [routerLink]="['/payments/edit', row._id]" matTooltip="Edit"
+              [disabled]="row.payee_payment_status === 'completed'">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deletePayment(row._id)" matTooltip="Delete">
+              <mat-icon>delete</mat-icon>
+            </button>
+           
+            <button 
+              mat-icon-button 
+              *ngIf="row.evidence_file_id"
+              [routerLink]="['/payments', row._id, 'evidence']"
+              matTooltip="View Evidence">
+              <mat-icon>attachment</mat-icon>
+            </button>
+            
+          </div>
         </td>
       </ng-container>
 

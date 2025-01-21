@@ -70,7 +70,13 @@ async def get_payments(
             query["$or"] = [
                 {"payee_first_name": {"$regex": search, "$options": "i"}},
                 {"payee_last_name": {"$regex": search, "$options": "i"}},
-                {"payee_email": {"$regex": search, "$options": "i"}}
+                {"payee_email": {"$regex": search, "$options": "i"}},
+                {"payee_address_line_1": {"$regex": search, "$options": "i"}},
+                {"payee_address_line_2": {"$regex": search, "$options": "i"}},
+                {"payee_city": {"$regex": search, "$options": "i"}},
+                {"payee_province_or_state": {"$regex": search, "$options": "i"}},
+                {"payee_country": {"$regex": search, "$options": "i"}},
+                {"payee_payment_status": {"$regex": search, "$options": "i"}}
             ]
             logger.info(f"Search query: {query}")
 

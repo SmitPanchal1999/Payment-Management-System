@@ -101,7 +101,7 @@ export class EditPaymentComponent implements OnInit {
         this.countryService.getStates(payment.payee_country).subscribe(data => {
           this.states = data.data.states;
         });
-        this.countryService.getCities(payment.payee_country, payment.payee_province_or_state).subscribe(data => {
+        this.countryService.getCities(payment.payee_country, payment.payee_province_or_state || '').subscribe(data => {
           this.cities = data.data;
         });
         this.paymentStatus = payment.payee_payment_status;

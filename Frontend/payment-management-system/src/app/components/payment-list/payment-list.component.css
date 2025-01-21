@@ -19,7 +19,26 @@
 }
 
 table {
+  table-layout: auto;
   width: 100%;
+}
+
+th {
+  position: relative;
+}
+
+th:hover {
+  cursor: col-resize;
+}
+
+th::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 5px;
+  height: 100%;
+  cursor: col-resize;
 }
 
 .mat-column-actions {
@@ -60,4 +79,10 @@ mat-progress-bar {
   top: 0;
   left: 0;
   right: 0;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }

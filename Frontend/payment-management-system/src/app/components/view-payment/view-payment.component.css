@@ -1,0 +1,27 @@
+.view-payment-container {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.form-section {
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px; /* Space between form fields */
+}
+
+.full-width {
+  flex: 1; /* Make the field take full width */
+}
+
+.mat-form-field {
+  flex: 1; /* Ensure all form fields are the same width */
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end; /* Align actions to the right */
+  margin-top: 20px; /* Space above the action buttons */
+}

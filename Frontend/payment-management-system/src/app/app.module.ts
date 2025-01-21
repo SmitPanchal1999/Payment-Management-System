@@ -12,6 +12,7 @@ import { PaymentListComponent } from './components/payment-list/payment-list.com
 import { AddPaymentComponent } from './components/add-payment/add-payment.component';
 import { EditPaymentComponent } from './components/edit-payment/edit-payment.component';
 import { UploadEvidenceComponent } from './components/upload-evidence/upload-evidence.component';
+import { ViewPaymentComponent } from './components/view-payment/view-payment.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { UploadEvidenceComponent } from './components/upload-evidence/upload-evi
     PaymentListComponent,
     AddPaymentComponent,
     EditPaymentComponent,
-    UploadEvidenceComponent
+    UploadEvidenceComponent,
+    ViewPaymentComponent
   ],
   imports: [
     BrowserModule,
